@@ -25,7 +25,7 @@ const PlayNavbar = () => {
                     </Popover>
                     <Menu>
                         <MenuItem icon="document" text="Submenu">
-                            <MenuItem icon="document" text="Child one" />
+                            <MenuItem icon="document" text="Child one" label="Aqui bien" />
                             <MenuItem text="Child two" />
                             <MenuItem text="Child three" />
                             <MenuItem icon="home" text="My sub2">
