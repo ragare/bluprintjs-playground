@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Intent, Spinner } from '@blueprintjs/core'
+import { Button, Intent, Spinner, ButtonGroup, AnchorButton, Callout } from '@blueprintjs/core'
 
 
 
@@ -28,6 +28,14 @@ const MyComponent = () => {
                 </li>
             </ol>
             <Button text="I'm a button" />
+            <ButtonGroup minimal={true} >
+                <Button icon="database">Queries</Button>
+                <Button icon="function">Functions</Button>
+                <AnchorButton rightIcon="caret-down">Options</AnchorButton>
+            </ButtonGroup>
+            <Callout>
+                This is a callout, some more text would be desirable
+            </Callout>
         </div>
 
 
