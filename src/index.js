@@ -6,9 +6,11 @@ import './styles/styles.scss'
 
 
 
-import MyComponent from './playground/MyComponent'
+//import MyComponent from './playground/MyComponent'
+//import PlayCollapse from './playground/PlayCollapse'
+import PlayMenu from './playground/PlayMenu'
 
-ReactDOM.render(<MyComponent />, document.getElementById('root'));
+ReactDOM.render(<PlayMenu />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
