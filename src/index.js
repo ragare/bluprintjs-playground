@@ -10,9 +10,10 @@ import './styles/flaticon/flaticon.css'
 //import MyComponent from './playground/MyComponent'
 //import PlayCollapse from './playground/PlayCollapse'
 //import PlayMenu from './playground/PlayMenu'
-import PlayNavbar from './playground/PlayNavbar'
+//import PlayNavbar from './playground/PlayNavbar'
+import PlayForm from './playground/PlayForm'
 
-ReactDOM.render(<PlayNavbar />, document.getElementById('root'));
+ReactDOM.render(<PlayForm />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
