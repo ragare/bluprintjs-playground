@@ -1,9 +1,14 @@
 import React, {useState} from 'react'
 import PlayCompInput from './PlayCompInput'
 
+
+
 const PlayForm = () => {
     const [inputValue, setInputValue] = useState('')
-    let i = 0
+
+    const setValue = (val) => {
+        setInputValue(val)
+    }
 
     const options = {
         helperText: '',
@@ -17,7 +22,7 @@ const PlayForm = () => {
     return (
         <>
             <div>My form</div>
-            <PlayCompInput label="Etiqueta" value={inputValue} setValue={setInputValue} id="PP"/>
+            <PlayCompInput label="Etiqueta" value={inputValue} setValue={setValue} id="PP"/>
         </>
     )
 }
