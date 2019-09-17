@@ -4,7 +4,7 @@ import PlayCompInput from './PlayCompInput'
 
 
 const PlayForm = () => {
-    const [inputValue, setInputValue] = useState('')
+    const [inputValue, setInputValue] = useState('115.33')
 
     const setValue = (val) => {
         setInputValue(val)
