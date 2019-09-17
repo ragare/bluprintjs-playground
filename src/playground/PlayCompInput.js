@@ -35,7 +35,7 @@ const PlayCompInput = (props) => {
         console.log('A la entrada')
         if (props.value) {
             console.log("Entrada con valor")
-            setIntValue(numeral(props.value).format('0,0.00') + " €")
+            setIntValue(numeral(props.value.replace('.',',')).format('0,0.00 $'))
         }
     }, [])
     
@@ -49,7 +49,7 @@ const PlayCompInput = (props) => {
     }
     const onBlur = (e) => {
         console.log("onblur", e.target.value)
-        const formatValue = numeral(intValue).format('0,0.00') + " €"
+        const formatValue = numeral(intValue).format('0,0.00 $')
         setIntValue(formatValue)
         let nVal = e.target.value.replace(' €', '')
         props.setValue(numeral(nVal).value())
