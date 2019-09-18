@@ -54,21 +54,42 @@ const PlayTable = (props) => {
 
     const cellRenderer = (rowIndex, columnIndex) => {
         //console.log('[1] ROW %s COLUMN %s', rowIndex, columnIndex)
-        const cellText = tableData[rowIndex][columns[columnIndex]['field']]
+        let cellText = tableData[rowIndex][columns[columnIndex]['field']]
         const type = columns[columnIndex]['type']
-        const cellClass = ''
+        let cellClass = ''
         switch (type) {
-            case 'string':
             case 'int':
-
+                cellClass = 'play-right'
+                cellText = numeral(cellText).format('0,0')
+                break
             case 'date':
+                cellClass = 'play-center'
+                cellText = moment(cellText).format('DD/MM/YYYY')
+                break
             case 'amount':
+                cellClass = 'play-right'
+                cellText = numeral(cellText).format('0,0.00 $')
+                break
         }
         return <Cell className={cellClass}>{cellText}</Cell>
     };
     const columnRender = (columnIndex) => {
         //console.log('[TEST] COLUMN %s', columnIndex)
-        return <ColumnHeaderCell name={columns[columnIndex]['name']} menuRenderer={MenuRenderer} />
+        let cellText = columns[columnIndex]['name']
+        const type = columns[columnIndex]['type']
+        let cellClass = ''
+        switch (type) {
+            case 'int':
+                cellClass = 'play-right'
+                break
+            case 'date':
+                cellClass = 'play-center'
+                break
+            case 'amount':
+                cellClass = 'play-right'
+                break
+        }
+        return <ColumnHeaderCell className={cellClass} name={cellText} menuRenderer={MenuRenderer} />
     }
     const sortAsc = () => {
         console.log("Sort ASC")
