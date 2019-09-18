@@ -2,18 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import * as serviceWorker from './serviceWorker';
 
+import SetLocale from './playground/PlaySetNumeralLocale'
+
 import './styles/styles.scss'
 import './styles/flaticon/flaticon.css'
-
-
-
-//import MyComponent from './playground/MyComponent'
-//import PlayCollapse from './playground/PlayCollapse'
-//import PlayMenu from './playground/PlayMenu'
-//import PlayNavbar from './playground/PlayNavbar'
-//import PlayForm from './playground/PlayForm'
-//import PlayTable from './playground/PlayTable'
 import PlayAppRouter from './playground/PlayAppRouter'
+
+SetLocale.setNumeral()
 
 ReactDOM.render(<PlayAppRouter />, document.getElementById('root'));
 

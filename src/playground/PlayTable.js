@@ -7,6 +7,9 @@ import {
     Cell, Column, Table, ColumnHeaderCell,
 } from "@blueprintjs/table"
 
+import numeral from 'numeral'
+import moment from 'moment'
+
 const PlayTable = (props) => {
     const originalValues = [
         {
@@ -51,7 +54,17 @@ const PlayTable = (props) => {
 
     const cellRenderer = (rowIndex, columnIndex) => {
         //console.log('[1] ROW %s COLUMN %s', rowIndex, columnIndex)
-        return <Cell>{tableData[rowIndex][columns[columnIndex]['field']]}</Cell>
+        const cellText = tableData[rowIndex][columns[columnIndex]['field']]
+        const type = columns[columnIndex]['type']
+        const cellClass = ''
+        switch (type) {
+            case 'string':
+            case 'int':
+
+            case 'date':
+            case 'amount':
+        }
+        return <Cell className={cellClass}>{cellText}</Cell>
     };
     const columnRender = (columnIndex) => {
         //console.log('[TEST] COLUMN %s', columnIndex)
