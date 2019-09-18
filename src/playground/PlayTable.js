@@ -3,7 +3,7 @@ import { H5, Menu, MenuItem } from '@blueprintjs/core'
 import { Cell, Column, Table, ColumnHeaderCell } from "@blueprintjs/table"
 
 const PlayTable = () => {
-    const [tableData, setTableData] = useState([
+    const originalValues = [
         {
             id: 'XDFATTA',
             name: 'John Viconst',
@@ -32,20 +32,20 @@ const PlayTable = () => {
             age: 45,
             savings: 1203.07
         }
-    ])
+    ]
+    const [tableData, setTableData] = useState(originalValues)
 
     const columns = [
-        { name: 'ID', field: 'id'},
-        { name: 'NAME', field: 'name'},
-        { name: 'BIRTH', field: 'birth'},
-        { name: 'AGE', field: 'age'},
-        { name: 'SAVINGS', field: 'savings'},
+        { name: 'ID', field: 'id', type: 'string' },
+        { name: 'NAME', field: 'name', type: 'string' },
+        { name: 'BIRTH', field: 'birth', type: 'date' },
+        { name: 'AGE', field: 'age', type: 'int' },
+        { name: 'SAVINGS', field: 'savings', type: 'amount' },
     ]
 
 
     const cellRenderer = (rowIndex, columnIndex) => {
         //console.log('[1] ROW %s COLUMN %s', rowIndex, columnIndex)
-        console.log('celldata', tableData[rowIndex])
         return <Cell>{tableData[rowIndex][columns[columnIndex]['field']]}</Cell>
     };
     const columnRender = (columnIndex) => {
@@ -69,6 +69,28 @@ const PlayTable = () => {
     const columnsReordered = () => {
         console.log('Columns reordered')
     }
+    const changeValues = () => {
+        const newValues = [
+            {
+                id: 'XDFATTA',
+                name: 'John Viconst',
+                birth: '20190202',
+                age: 33,
+                savings: 123.26
+            },
+            {
+                id: 'GRER899',
+                name: 'Mary Shelly',
+                birth: '18920203',
+                age: 87,
+                savings: 2600.00
+            }
+        ]
+        setTableData(newValues)
+    }
+    const changeOriginal = () => {
+        setTableData(originalValues)
+    }
     return (
         <>
             <H5>This will be a table</H5>
@@ -76,16 +98,19 @@ const PlayTable = () => {
                 <Table numRows={tableData.length}
                     enableColumnReordering={true}
                     onColumnsReordered={columnsReordered}
+                    enableFocusedCell={true}
                 >
                     {
                         columns.map((c) => {
-                            return <Column columnHeaderCellRenderer={columnRender} cellRenderer={cellRenderer}  />
+                            return <Column columnHeaderCellRenderer={columnRender} cellRenderer={cellRenderer} />
                         })
                     }
                     {/* <Column name="Dollars" cellRenderer={cellRenderer} columnHeaderCellRenderer={columnRender} />
                     <Column name="Names" cellRenderer={cellRenderer2} /> */}
                 </Table>
             </div>
+            <button onClick={changeValues}>Change values</button>
+            <button onClick={changeOriginal}>Original values</button>
         </>
     )
 }
