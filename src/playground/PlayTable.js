@@ -1,8 +1,13 @@
 import React, { useState } from 'react'
-import { H5, Menu, MenuItem } from '@blueprintjs/core'
-import { Cell, Column, Table, ColumnHeaderCell } from "@blueprintjs/table"
+import {
+    H5, Menu, MenuItem, Alignment, Button, Classes,
+    Navbar, NavbarGroup, NavbarDivider, NavbarHeading, InputGroup
+} from '@blueprintjs/core'
+import {
+    Cell, Column, Table, ColumnHeaderCell,
+} from "@blueprintjs/table"
 
-const PlayTable = () => {
+const PlayTable = (props) => {
     const originalValues = [
         {
             id: 'XDFATTA',
@@ -91,9 +96,35 @@ const PlayTable = () => {
     const changeOriginal = () => {
         setTableData(originalValues)
     }
+    const useHistory = () => {
+        props.history.push('/menu')
+    }
+    const filtraDatos = (e) => {
+        //console.log(e.target.value)
+        const toSearch = e.target.value
+        const toFilterData = originalValues
+        const filteredData = toFilterData.filter(row => {
+            let found = false
+            columns.forEach(c => {
+                //console.log('Text: %s Search: %s', row[c.field].toString(), toSearch)
+                if (row[c.field].toString().toUpperCase().includes(toSearch.toUpperCase())) {
+                    found = true;
+                }
+            })
+            return found
+        })
+        //console.log('FILTERED: ', filteredData)
+        setTableData(filteredData)
+    }
     return (
         <>
             <H5>This will be a table</H5>
+            <Navbar>
+                <NavbarGroup align={Alignment.RIGHT}>
+                    <InputGroup leftIcon="filter" placeholder="Introduzca text a buscar..." onChange={filtraDatos} />
+                    <Button className={Classes.MINIMAL} icon="plus" text="Nuevo" />
+                </NavbarGroup>
+            </Navbar>
             <div style={{ height: "500px" }}>
                 <Table numRows={tableData.length}
                     enableColumnReordering={true}
@@ -111,6 +142,8 @@ const PlayTable = () => {
             </div>
             <button onClick={changeValues}>Change values</button>
             <button onClick={changeOriginal}>Original values</button>
+            <button onClick={useHistory}>TO MENU</button>
+
         </>
     )
 }
