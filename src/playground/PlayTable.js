@@ -51,6 +51,9 @@ const PlayTable = (props) => {
         { name: 'SAVINGS', field: 'savings', type: 'amount' },
     ]
 
+    const columnsWidth = [
+
+    ]
 
     const cellRenderer = (rowIndex, columnIndex) => {
         //console.log('[1] ROW %s COLUMN %s', rowIndex, columnIndex)
@@ -89,7 +92,7 @@ const PlayTable = (props) => {
                 cellClass = 'play-right'
                 break
         }
-        return <ColumnHeaderCell className={cellClass} name={cellText} menuRenderer={MenuRenderer} />
+        return <ColumnHeaderCell className={cellClass} name={cellText} menuRenderer={MenuRenderer} width="80%" />
     }
     const sortAsc = () => {
         console.log("Sort ASC")
@@ -112,7 +115,7 @@ const PlayTable = (props) => {
         const newValues = [
             {
                 id: 'XDFATTA',
-                name: 'John Viconst',
+                name: 'John Viconst John Viconst John Viconst John Viconst  John Viconst John Viconst John Viconst John Viconst',
                 birth: '20190202',
                 age: 33,
                 savings: 123.26
@@ -140,8 +143,24 @@ const PlayTable = (props) => {
         const filteredData = toFilterData.filter(row => {
             let found = false
             columns.forEach(c => {
-                //console.log('Text: %s Search: %s', row[c.field].toString(), toSearch)
-                if (row[c.field].toString().toUpperCase().includes(toSearch.toUpperCase())) {
+                let value = row[c.field]
+                const type = c.type
+                switch (type) {
+                    case 'string':
+                        value = value.toUpperCase()
+                    case 'int':
+                        value = numeral(value).format('0,0')
+                        break
+                    case 'date':
+                        value = moment(value).format('DD/MM/YYYY')
+                        break
+                    case 'amount':
+                        value = numeral(value).format('0,0.00 $')
+                        break
+                }
+                const search = toSearch.toUpperCase()
+                console.log('Text: %s Search: %s', value, search)
+                if (value.includes(search)) {
                     found = true;
                 }
             })
@@ -155,7 +174,7 @@ const PlayTable = (props) => {
             <H5>This will be a table</H5>
             <Navbar>
                 <NavbarGroup align={Alignment.RIGHT}>
-                    <InputGroup leftIcon="filter" placeholder="Introduzca text a buscar..." onChange={filtraDatos} />
+                    <InputGroup leftIcon="filter" placeholder="Introduzca texto a buscar..." onChange={filtraDatos} />
                     <Button className={Classes.MINIMAL} icon="plus" text="Nuevo" />
                 </NavbarGroup>
             </Navbar>
@@ -164,12 +183,14 @@ const PlayTable = (props) => {
                     enableColumnReordering={true}
                     onColumnsReordered={columnsReordered}
                     enableFocusedCell={true}
+                    enableGhostCells={true}
                 >
                     {
                         columns.map((c) => {
                             return <Column columnHeaderCellRenderer={columnRender} cellRenderer={cellRenderer} />
                         })
                     }
+                    <Column name="ACCIONES"/>
                     {/* <Column name="Dollars" cellRenderer={cellRenderer} columnHeaderCellRenderer={columnRender} />
                     <Column name="Names" cellRenderer={cellRenderer2} /> */}
                 </Table>
