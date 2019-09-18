@@ -1,5 +1,5 @@
 import React from 'react'
-import { H5 } from '@blueprintjs/core'
+import { H5, Menu, MenuItem } from '@blueprintjs/core'
 import { Cell, Column, Table, ColumnHeaderCell } from "@blueprintjs/table"
 
 const PlayTable = () => {
@@ -13,19 +13,23 @@ const PlayTable = () => {
     };
     const TestRender = () => {
         console.log("test render")
-        return <ColumnHeaderCell name={'Yo que se'}/>
+        return <ColumnHeaderCell name={'Yo que se'} menuRenderer={MenuRenderer} />
+    }
+    const MenuRenderer = () => {
+        return (
+            <Menu>
+                <MenuItem text="Child one" />
+                <MenuItem text="Child two" />
+                <MenuItem text="Child three" />
+            </Menu>
+        )
     }
     return (
         <>
             <H5>This will be a table</H5>
             <div style={{ height: "500px" }}>
-                <Table numRows={10}
-                    enableColumnReordering={true}
-                    enableColumnResizing={false}
-                    enableRowReordering={true}
-                    enableRowResizing={false}
-                    enableGhostCells={true}>
-                    <Column name="Dollars" cellRenderer={cellRenderer} columnHeaderCellRenderer={TestRender}/>
+                <Table numRows={10}>
+                    <Column name="Dollars" cellRenderer={cellRenderer} columnHeaderCellRenderer={TestRender} />
                     <Column name="Names" cellRenderer={cellRenderer2} />
                 </Table>
             </div>
