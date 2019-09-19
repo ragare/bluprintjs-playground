@@ -1,6 +1,6 @@
 import { Router, Route, Switch, Link, NavLink } from 'react-router-dom'
 import React from 'react'
-import createHistory from 'history/createBrowserHistory'
+import {createBrowserHistory} from 'history'
 
 import PlayNotFound from './PlayNotFound'
 import PlayMenu from './PlayMenu'
@@ -8,7 +8,7 @@ import PlayTable from './PlayTable'
 import PlayNavbar from './PlayNavbar'
 import PlayForm from './PlayForm'
 
-export const history = createHistory()
+export const history = createBrowserHistory()
 
 const PlayAppRouter = () => (
     <Router history={history}>

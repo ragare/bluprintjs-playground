@@ -44,8 +44,8 @@ const PlayTable = (props) => {
     const [tableData, setTableData] = useState(originalValues)
 
     const columns = [
-        { name: 'ID', field: 'id', type: 'string', w: 'fill' },
-        { name: 'NAME', field: 'name', type: 'string', w:'2000px' },
+        { name: 'ID', field: 'id', type: 'string', w: '150' },
+        { name: 'NAME', field: 'name', type: 'string', w:'fill' },
         { name: 'BIRTH', field: 'birth', type: 'date', w:'150px' },
         { name: 'AGE', field: 'age', type: 'int', w: '100px' },
         { name: 'SAVINGS', field: 'savings', type: 'amount', w:'100px' },
@@ -78,7 +78,7 @@ const PlayTable = (props) => {
             }
             i++
         })
-        widths.push(150) // Actions column
+        widths.push(100) // Actions column
         // Fill column
         if (size - yetFilled > 150) {
             widths[posfill] = size -yetFilled
@@ -171,7 +171,6 @@ const PlayTable = (props) => {
         props.history.push('/menu')
     }
     const filtraDatos = (e) => {
-        //console.log(e.target.value)
         const toSearch = e.target.value
         const toFilterData = originalValues
         const filteredData = toFilterData.filter(row => {
@@ -180,8 +179,6 @@ const PlayTable = (props) => {
                 let value = row[c.field]
                 const type = c.type
                 switch (type) {
-                    case 'string':
-                        value = value.toUpperCase()
                     case 'int':
                         value = numeral(value).format('0,0')
                         break
@@ -193,14 +190,12 @@ const PlayTable = (props) => {
                         break
                 }
                 const search = toSearch.toUpperCase()
-                console.log('Text: %s Search: %s', value, search)
-                if (value.includes(search)) {
+                if (value.toUpperCase().includes(search)) {
                     found = true;
                 }
             })
             return found
         })
-        //console.log('FILTERED: ', filteredData)
         setTableData(filteredData)
     }
 
@@ -231,10 +226,10 @@ const PlayTable = (props) => {
                 >
                     {
                         columns.map((c) => {
-                            return <Column columnHeaderCellRenderer={columnRender} cellRenderer={cellRenderer} />
+                            return <Column key={c.name} columnHeaderCellRenderer={columnRender} cellRenderer={cellRenderer} />
                         })
                     }
-                    <Column name="ACCIONES"/>
+                    <Column key="actions" name="ACCIONES"/>
                     {/* <Column name="Dollars" cellRenderer={cellRenderer} columnHeaderCellRenderer={columnRender} />
                     <Column name="Names" cellRenderer={cellRenderer2} /> */}
                 </Table>
