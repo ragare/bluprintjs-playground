@@ -9,6 +9,7 @@ import {
 
 import numeral from 'numeral'
 import moment from 'moment'
+import { identifier } from '@babel/types'
 
 const PlayTable = (props) => {
     const originalValues = [
@@ -45,10 +46,10 @@ const PlayTable = (props) => {
 
     const columns = [
         { name: 'ID', field: 'id', type: 'string', w: '150' },
-        { name: 'NAME', field: 'name', type: 'string', w:'fill' },
-        { name: 'BIRTH', field: 'birth', type: 'date', w:'150px' },
+        { name: 'NAME', field: 'name', type: 'string', w: 'fill' },
+        { name: 'BIRTH', field: 'birth', type: 'date', w: '150px' },
         { name: 'AGE', field: 'age', type: 'int', w: '100px' },
-        { name: 'SAVINGS', field: 'savings', type: 'amount', w:'100px' },
+        { name: 'SAVINGS', field: 'savings', type: 'amount', w: '100px' },
     ]
 
     const calcWidths = () => {
@@ -57,22 +58,22 @@ const PlayTable = (props) => {
         let posfill = -1
         let size = document.getElementsByClassName("bp3-table-container")[0].clientWidth - 150
         let yetFilled = 0
-        columns.forEach(c=> {
-            if (c.w.includes('px')){
-                let val = c.w.replace('px','')
+        columns.forEach(c => {
+            if (c.w.includes('px')) {
+                let val = c.w.replace('px', '')
                 val = parseInt(val)
                 widths.push(val)
                 yetFilled += val
-            }else if (c.w.includes('%')){
-                let val = c.w.replace('%','')
+            } else if (c.w.includes('%')) {
+                let val = c.w.replace('%', '')
                 val = parseInt(val)
                 val = (size / 100.00) * val
                 widths.push(val)
                 yetFilled += val
-            }else if (c.w.includes('fill')){
+            } else if (c.w.includes('fill')) {
                 posfill = i
                 widths.push(150) // Waiting to change it eventually
-            }else {
+            } else {
                 widths.push(150) // Default with column
                 yetFilled += 150
             }
@@ -81,12 +82,12 @@ const PlayTable = (props) => {
         widths.push(100) // Actions column
         // Fill column
         if (size - yetFilled > 150) {
-            widths[posfill] = size -yetFilled
+            widths[posfill] = size - yetFilled
         }
         return widths
     }
 
-    const [colsW, setColsW] = useState([150,150,100,100,100,150])
+    const [colsW, setColsW] = useState([150, 150, 100, 100, 100, 150])
 
 
     const cellRenderer = (rowIndex, columnIndex) => {
@@ -126,15 +127,47 @@ const PlayTable = (props) => {
                 cellClass = 'play-right'
                 break
         }
-        return <ColumnHeaderCell className={cellClass} name={cellText} menuRenderer={MenuRenderer}/>
+        return <ColumnHeaderCell className={cellClass} name={cellText} menuRenderer={MenuRenderer} />
     }
-    const sortAsc = () => {
-        console.log("Sort ASC")
+
+    const sortColumn = (column, direction) => {
+        console.log("Column %s Direction %s", column, direction)
+        const dataToSort = tableData
+        const sortedTableData = dataToSort.sort((ao, bo) => {
+            const a = ao[columns[column]['field']]
+            const b = bo[columns[column]['field']]
+            const type = columns[column]['type']
+            if (direction === 'DESC') {
+                if (type === 'string' || type === 'date') {
+                    return b.toString().localeCompare(a)
+                } else {
+                    return compareNumber(b, a)
+                }
+            } else {
+                // ASC
+                if (type === 'string' || type === 'date') {
+                    return a.toString().localeCompare(b)
+                } else {
+                    return compareNumber(a, b)
+                }
+            }
+        })
+        setTableData(sortedTableData)
     }
-    const sortDesc = () => {
-        console.log("Sort DESC")
+
+    const compareNumber = (a, b) => {
+        if (a < b) {
+            return -1
+        }
+        if (a > b) {
+            return 1
+        }
+        return 0
     }
-    const MenuRenderer = () => {
+
+    const MenuRenderer = (index) => {
+        const sortAsc = () => sortColumn(index, 'ASC')
+        const sortDesc = () => sortColumn(index, 'DESC')
         return (
             <Menu>
                 <MenuItem icon="sort-asc" onClick={sortAsc} text="Sort Asc" />
@@ -229,7 +262,7 @@ const PlayTable = (props) => {
                             return <Column key={c.name} columnHeaderCellRenderer={columnRender} cellRenderer={cellRenderer} />
                         })
                     }
-                    <Column key="actions" name="ACCIONES"/>
+                    <Column key="actions" name="ACCIONES" />
                     {/* <Column name="Dollars" cellRenderer={cellRenderer} columnHeaderCellRenderer={columnRender} />
                     <Column name="Names" cellRenderer={cellRenderer2} /> */}
                 </Table>
