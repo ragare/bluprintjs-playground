@@ -44,16 +44,50 @@ const PlayTable = (props) => {
     const [tableData, setTableData] = useState(originalValues)
 
     const columns = [
-        { name: 'ID', field: 'id', type: 'string' },
-        { name: 'NAME', field: 'name', type: 'string' },
-        { name: 'BIRTH', field: 'birth', type: 'date' },
-        { name: 'AGE', field: 'age', type: 'int' },
-        { name: 'SAVINGS', field: 'savings', type: 'amount' },
+        { name: 'ID', field: 'id', type: 'string', w: 'fill' },
+        { name: 'NAME', field: 'name', type: 'string', w:'2000px' },
+        { name: 'BIRTH', field: 'birth', type: 'date', w:'150px' },
+        { name: 'AGE', field: 'age', type: 'int', w: '100px' },
+        { name: 'SAVINGS', field: 'savings', type: 'amount', w:'100px' },
     ]
 
-    const columnsWidth = [
+    const calcWidths = () => {
+        let widths = []
+        let i = 0
+        let posfill = -1
+        let size = document.getElementsByClassName("bp3-table-container")[0].clientWidth - 150
+        let yetFilled = 0
+        columns.forEach(c=> {
+            if (c.w.includes('px')){
+                let val = c.w.replace('px','')
+                val = parseInt(val)
+                widths.push(val)
+                yetFilled += val
+            }else if (c.w.includes('%')){
+                let val = c.w.replace('%','')
+                val = parseInt(val)
+                val = (size / 100.00) * val
+                widths.push(val)
+                yetFilled += val
+            }else if (c.w.includes('fill')){
+                posfill = i
+                widths.push(150) // Waiting to change it eventually
+            }else {
+                widths.push(150) // Default with column
+                yetFilled += 150
+            }
+            i++
+        })
+        widths.push(150) // Actions column
+        // Fill column
+        if (size - yetFilled > 150) {
+            widths[posfill] = size -yetFilled
+        }
+        return widths
+    }
 
-    ]
+    const [colsW, setColsW] = useState([150,150,100,100,100,150])
+
 
     const cellRenderer = (rowIndex, columnIndex) => {
         //console.log('[1] ROW %s COLUMN %s', rowIndex, columnIndex)
@@ -92,7 +126,7 @@ const PlayTable = (props) => {
                 cellClass = 'play-right'
                 break
         }
-        return <ColumnHeaderCell className={cellClass} name={cellText} menuRenderer={MenuRenderer} width="80%" />
+        return <ColumnHeaderCell className={cellClass} name={cellText} menuRenderer={MenuRenderer}/>
     }
     const sortAsc = () => {
         console.log("Sort ASC")
@@ -169,6 +203,16 @@ const PlayTable = (props) => {
         //console.log('FILTERED: ', filteredData)
         setTableData(filteredData)
     }
+
+    const changeWidths = () => {
+        console.log('Change width')
+        setColsW(calcWidths())
+    }
+
+    const containerSize = () => {
+        let size = document.getElementsByClassName("bp3-table-container")[0].clientWidth
+        console.log("size", size)
+    }
     return (
         <>
             <H5>This will be a table</H5>
@@ -182,8 +226,8 @@ const PlayTable = (props) => {
                 <Table numRows={tableData.length}
                     enableColumnReordering={true}
                     onColumnsReordered={columnsReordered}
+                    columnWidths={colsW}
                     enableFocusedCell={true}
-                    enableGhostCells={true}
                 >
                     {
                         columns.map((c) => {
@@ -198,6 +242,8 @@ const PlayTable = (props) => {
             <button onClick={changeValues}>Change values</button>
             <button onClick={changeOriginal}>Original values</button>
             <button onClick={useHistory}>TO MENU</button>
+            <button onClick={changeWidths}>Change Widths</button>
+            <button onClick={containerSize}>Container size</button>
 
         </>
     )
