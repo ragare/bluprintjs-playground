@@ -12,6 +12,7 @@ import moment from 'moment'
 import { identifier } from '@babel/types'
 
 const PlayTable = (props) => {
+    const [currentWidth, setCurrentWith] = useState(0)
     const originalValues = [
         {
             id: 'XDFATTA',
@@ -56,7 +57,7 @@ const PlayTable = (props) => {
         let widths = []
         let i = 0
         let posfill = -1
-        let size = document.getElementsByClassName("bp3-table-container")[0].clientWidth - 150
+        let size = document.getElementsByClassName("bp3-table-container")[0].clientWidth - 120
         let yetFilled = 0
         columns.forEach(c => {
             if (c.w.includes('px')) {
@@ -232,14 +233,33 @@ const PlayTable = (props) => {
         setTableData(filteredData)
     }
 
+
     const changeWidths = () => {
-        console.log('Change width')
-        setColsW(calcWidths())
+        if (document.getElementsByClassName("bp3-table-container")[0].clientWidth != currentWidth) {
+            console.log('Change width')
+            setCurrentWith(document.getElementsByClassName("bp3-table-container")[0].clientWidth)
+            setColsW(calcWidths)
+        }
     }
 
     const containerSize = () => {
         let size = document.getElementsByClassName("bp3-table-container")[0].clientWidth
         console.log("size", size)
+    }
+
+    const handleCellActionsRender = (row, action) => {
+        console.log("row %s action %s", row, action)
+    }
+
+    const cellActionsRender = (rowIndex, columnIndex) => {
+        const editAction = () => handleCellActionsRender(rowIndex, 'EDIT')
+        const deleteAction = () => handleCellActionsRender(rowIndex, 'DELETE')
+        return (
+            <Cell className={'play-actions-cell'}>
+                <Button icon="edit" small={true} className={'bp3-minimal play-button-grid'} onClick={editAction}></Button>
+                <Button icon="trash" small={true} className={'bp3-minimal play-button-grid'} onClick={deleteAction}></Button>
+            </Cell>
+        )
     }
     return (
         <>
@@ -247,13 +267,13 @@ const PlayTable = (props) => {
             <Navbar>
                 <NavbarGroup align={Alignment.RIGHT}>
                     <InputGroup leftIcon="filter" placeholder="Introduzca texto a buscar..." onChange={filtraDatos} />
-                    <Button className={Classes.MINIMAL} icon="plus" text="Nuevo" />
+                    <Button className={Classes.MINIMAL} icon="add" text="Nuevo" />
                 </NavbarGroup>
             </Navbar>
             <div style={{ height: "500px" }}>
                 <Table numRows={tableData.length}
-                    enableColumnReordering={true}
-                    onColumnsReordered={columnsReordered}
+                    // enableColumnReordering={true}
+                    // onColumnsReordered={columnsReordered}
                     columnWidths={colsW}
                     enableFocusedCell={true}
                     onCompleteRender={() => changeWidths()}
@@ -263,7 +283,7 @@ const PlayTable = (props) => {
                             return <Column key={c.name} columnHeaderCellRenderer={columnRender} cellRenderer={cellRenderer} />
                         })
                     }
-                    <Column key="actions" name="ACCIONES" />
+                    <Column key="actions" name="ACCIONES" cellRenderer={cellActionsRender} />
                     {/* <Column name="Dollars" cellRenderer={cellRenderer} columnHeaderCellRenderer={columnRender} />
                     <Column name="Names" cellRenderer={cellRenderer2} /> */}
                 </Table>
