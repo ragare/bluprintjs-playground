@@ -43,6 +43,9 @@ const PlayTable = (props) => {
             savings: 1203.07
         }
     ]
+
+
+
     const [tableData, setTableData] = useState(originalValues)
 
     const columns = [
@@ -180,22 +183,18 @@ const PlayTable = (props) => {
         console.log('Columns reordered')
     }
     const changeValues = () => {
-        const newValues = [
-            {
-                id: 'XDFATTA',
-                name: 'John Viconst John Viconst John Viconst John Viconst  John Viconst John Viconst John Viconst John Viconst',
-                birth: '20190202',
-                age: 33,
-                savings: 123.26
-            },
-            {
-                id: 'GRER899',
-                name: 'Mary Shelly',
-                birth: '18920203',
-                age: 87,
-                savings: 2600.00
-            }
-        ]
+        console.log('changeValues')
+        let newValues = []
+        for (let i = 0; i < 10000; i++) {
+            newValues.push({
+                id: 'STR' + i,
+                name: 'NAME' + i,
+                birth: '20190123',
+                age: i * 2,
+                savings: i * 30
+            })
+        }
+        console.log('new', newValues)
         setTableData(newValues)
     }
     const changeOriginal = () => {
@@ -263,31 +262,33 @@ const PlayTable = (props) => {
     }
     return (
         <>
-            <H5>This will be a table</H5>
             <Navbar>
+                <NavbarGroup align={Alignment.LEFT}>
+                    <NavbarHeading>
+                        <span className="flaticon-wallet play-big"></span>
+                        This is the title of the table
+                    </NavbarHeading>
+                    <NavbarDivider />
+                </NavbarGroup>
                 <NavbarGroup align={Alignment.RIGHT}>
                     <InputGroup leftIcon="filter" placeholder="Introduzca texto a buscar..." onChange={filtraDatos} />
                     <Button className={Classes.MINIMAL} icon="add" text="Nuevo" />
                 </NavbarGroup>
             </Navbar>
-            <div style={{ height: "500px" }}>
-                <Table numRows={tableData.length}
-                    // enableColumnReordering={true}
-                    // onColumnsReordered={columnsReordered}
-                    columnWidths={colsW}
-                    enableFocusedCell={true}
-                    onCompleteRender={() => changeWidths()}
-                >
-                    {
-                        columns.map((c) => {
-                            return <Column key={c.name} columnHeaderCellRenderer={columnRender} cellRenderer={cellRenderer} />
-                        })
-                    }
-                    <Column key="actions" name="ACCIONES" cellRenderer={cellActionsRender} />
-                    {/* <Column name="Dollars" cellRenderer={cellRenderer} columnHeaderCellRenderer={columnRender} />
-                    <Column name="Names" cellRenderer={cellRenderer2} /> */}
-                </Table>
-            </div>
+            <Table numRows={tableData.length}
+                // enableColumnReordering={true}
+                // onColumnsReordered={columnsReordered}
+                columnWidths={colsW}
+                enableFocusedCell={true}
+                onCompleteRender={() => changeWidths()}
+            >
+                {
+                    columns.map((c) => {
+                        return <Column key={c.name} columnHeaderCellRenderer={columnRender} cellRenderer={cellRenderer} />
+                    })
+                }
+                <Column key="actions" name="ACCIONES" cellRenderer={cellActionsRender} />
+            </Table>
             <button onClick={changeValues}>Change values</button>
             <button onClick={changeOriginal}>Original values</button>
             <button onClick={useHistory}>TO MENU</button>

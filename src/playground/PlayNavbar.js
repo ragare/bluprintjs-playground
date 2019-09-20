@@ -1,6 +1,7 @@
 import React from 'react'
 import { H5, Navbar, NavbarGroup, NavbarDivider, NavbarHeading, Alignment, Classes, Button, Popover, Position, Menu, MenuItem } from '@blueprintjs/core'
 import TreeIcon from './icons/TreeIcon'
+import PlayTable from './PlayTable'
 
 const PlayNavbar = () => {
     const menu1 = (
@@ -13,10 +14,6 @@ const PlayNavbar = () => {
 
     return (
         <div>
-            <span className="flaticon-farmer play-big"></span>
-            <H5>
-                Play Navbar
-            </H5>
             <Navbar className="bp3-dark">
                 <NavbarGroup align={Alignment.LEFT}>
                     <NavbarHeading>
@@ -52,10 +49,8 @@ const PlayNavbar = () => {
 
                 </NavbarGroup>
             </Navbar>
-            <div>
-                Aqui el cuerpo
-                <i className="flaticon-farmer"></i>
-                <span className="flaticon-farmer play-big"></span>
+            <div className={'play-higth'}>
+                <PlayTable/>
             </div>
         </div>
     )
