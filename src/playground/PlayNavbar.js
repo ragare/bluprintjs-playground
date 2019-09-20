@@ -19,7 +19,10 @@ const PlayNavbar = () => {
             </H5>
             <Navbar className="bp3-dark">
                 <NavbarGroup align={Alignment.LEFT}>
-                    <NavbarHeading>Blueprint</NavbarHeading>
+                    <NavbarHeading>
+                        <span className="flaticon-wallet play-big"></span>
+                        Blueprint
+                    </NavbarHeading>
                     <NavbarDivider />
                     <Button className={Classes.MINIMAL} icon="home" text="Home" />
                     <Button className={Classes.MINIMAL} icon="document" text="Files" />

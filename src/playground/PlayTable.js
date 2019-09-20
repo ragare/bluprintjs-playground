@@ -87,7 +87,7 @@ const PlayTable = (props) => {
         return widths
     }
 
-    const [colsW, setColsW] = useState([150, 150, 100, 100, 100, 150])
+    const [colsW, setColsW] = useState(null)
 
 
     const cellRenderer = (rowIndex, columnIndex) => {
@@ -256,6 +256,7 @@ const PlayTable = (props) => {
                     onColumnsReordered={columnsReordered}
                     columnWidths={colsW}
                     enableFocusedCell={true}
+                    onCompleteRender={() => changeWidths()}
                 >
                     {
                         columns.map((c) => {
