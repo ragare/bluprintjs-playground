@@ -41,3 +41,9 @@
 .play-higth {
     height: 80vh;
 }
+.play-zatras {
+    z-index: -1;
+}
+.play-zadelante {
+    z-index: 99;
+}

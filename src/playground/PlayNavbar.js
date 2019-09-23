@@ -14,7 +14,7 @@ const PlayNavbar = () => {
 
     return (
         <div>
-            <Navbar className="bp3-dark">
+            <Navbar className="bp3-dark play-zadelante">
                 <NavbarGroup align={Alignment.LEFT}>
                     <NavbarHeading>
                         <span className="flaticon-wallet play-big"></span>
