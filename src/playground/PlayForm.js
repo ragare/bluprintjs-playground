@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import PlayCompInput from './PlayCompInput'
+import PlayDate from './PlayDate'
 
 
 
@@ -23,6 +24,8 @@ const PlayForm = () => {
         <>
             <div>My form</div>
             <PlayCompInput label="Etiqueta" value={inputValue} setValue={setValue} id="PP"/>
+            <div>Date component</div>
+            <PlayDate/>
         </>
     )
 }
