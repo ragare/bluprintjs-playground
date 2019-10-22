@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Position } from '@blueprintjs/core'
 import { DateInput, IDateFormatProps } from "@blueprintjs/datetime";
+import { FormGroup } from '@blueprintjs/core'
 import moment from "moment";
 
 
@@ -40,30 +41,43 @@ const PlayDate = (props) => {
             'Sa'
         ]
     }
+    try {
+        return (
+            <>
+                <FormGroup
+                    helperText={props.helperText || ''}
+                    label={props.label || ''}
+                    labelFor={props.id || ''}
+                    labelInfo={props.labelInfo || ''}
+                >
+                    <DateInput
+                        formatDate={date => {
+                            console.log("date", date)
+                            console.log("props", props)
+                            return moment(date).format('DD/MM/YYYY')
+                        }}
+                        placeholder={"DD/MM/YYYY"}
+                        parseDate={str => {
+                            return moment(str, 'DD/MM/YYYY').toDate()
+                        }}
+                        minDate={moment('1900-01-01').toDate()}
+                        maxDate={moment('2025-12-31').toDate()}
+                        dayPickerProps={{
+                            locale: 'es',
+                            months: DateFormatString.months,
+                            weekdaysLong: DateFormatString.weekDaysLong,
+                            weekdaysShort: DateFormatString.weekDaysShort,
+                            firstDayOfWeek: 1,
+                        }}
+                    />
+                    <div class="bp3-form-helper-text">Valor de base</div>
+                </FormGroup>
+            </>
+        )
+    } catch (err) {
+        console.log("Err: ", err.message)
+    }
 
-    return (
-        <>
-            <DateInput
-                formatDate={date => {
-                    console.log("date", date)
-                    return date.toLocaleString('es-ES', { year: "numeric", month: "2-digit", day: "numeric" })
-                }}
-                placeholder={"DD/MM/YYYY"}
-                parseDate = {str => {
-                    console.log("str", str);
-                    return new Date(str)
-                }}
-                dayPickerProps={{
-                    locale: 'es',
-                    months: DateFormatString.months,
-                    weekdaysLong: DateFormatString.weekDaysLong,
-                    weekdaysShort: DateFormatString.weekDaysShort,
-                    firstDayOfWeek: 1,
-                }}
-            />
-
-        </>
-    )
 }
 
 export { PlayDate as default }

@@ -1,6 +1,7 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import PlayCompInput from './PlayCompInput'
 import PlayDate from './PlayDate'
+import ErrorBoundary from './ErrorBoundary'
 
 
 
@@ -23,9 +24,11 @@ const PlayForm = () => {
     return (
         <>
             <div>My form</div>
-            <PlayCompInput label="Etiqueta" value={inputValue} setValue={setValue} id="PP"/>
-            <div>Date component</div>
-            <PlayDate/>
+            <PlayCompInput label="Amount label" labelInfo="(Info)" value={inputValue} setValue={setValue} id="PP" />
+            <ErrorBoundary>
+                <PlayDate label="Date label" id="P2" />
+            </ErrorBoundary>
+
         </>
     )
 }

@@ -44,7 +44,6 @@ const PlayCompInput = (props) => {
 
     return (
         <>
-            <div>Input component</div>
             <FormGroup
                 helperText={props.helperText || ''}
                 label={props.label || ''}
@@ -52,6 +51,7 @@ const PlayCompInput = (props) => {
                 labelInfo={props.labelInfo || ''}
             >
                 <InputGroup id={props.id} placeholder={props.placeholder} value={intValue} onChange={setValue} onBlur={onBlur} onFocus={onFocus} />
+                <div class="bp3-form-helper-text">Valor de base</div>
             </FormGroup>
         </>
     )
