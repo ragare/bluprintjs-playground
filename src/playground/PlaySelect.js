@@ -18,10 +18,11 @@ const PlaySelect = (props) => {
             />
         )
     }
-    const myfilter = (val, v2, v3) => {
+    const myfilter = (str, item) => {
         // return v2.toUpperCase().includes(val.toUpperCase())
-        console.log("(1) %s (2) %s (3) %s", val, v2.year, v3)
-        return true
+        // console.log("(1) %s (2) %s (3) %s", val, v2.season, v3)
+        return item.season.toUpperCase().includes(str.toUpperCase())
+        //return true
     }
     const handleClick = (item) => {
         console.log(item)
