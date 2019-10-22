@@ -44,8 +44,15 @@ const PlayDate = (props) => {
     return (
         <>
             <DateInput
-                formatDate={date => date.toLocaleString('es-ES', { year: "numeric", month: "2-digit", day: "numeric" })}
+                formatDate={date => {
+                    console.log("date", date)
+                    return date.toLocaleString('es-ES', { year: "numeric", month: "2-digit", day: "numeric" })
+                }}
                 placeholder={"DD/MM/YYYY"}
+                parseDate = {str => {
+                    console.log("str", str);
+                    return new Date(str)
+                }}
                 dayPickerProps={{
                     locale: 'es',
                     months: DateFormatString.months,
