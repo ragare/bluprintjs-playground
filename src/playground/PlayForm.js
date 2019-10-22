@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import PlayCompInput from './PlayCompInput'
 import PlayDate from './PlayDate'
 import ErrorBoundary from './ErrorBoundary'
+import PlaySelect from './PlaySelect'
 
 
 
@@ -28,6 +29,7 @@ const PlayForm = () => {
             <ErrorBoundary>
                 <PlayDate label="Date label" id="P2" />
             </ErrorBoundary>
+            <PlaySelect />
 
         </>
     )

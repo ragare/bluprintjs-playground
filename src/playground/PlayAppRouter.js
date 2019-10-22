@@ -8,6 +8,7 @@ import PlayTable from './PlayTable'
 import PlayNavbar from './PlayNavbar'
 import PlayForm from './PlayForm'
 import PlayDate from './PlayDate'
+import PlaySelect from './PlaySelect'
 
 export const history = createBrowserHistory()
 
@@ -19,6 +20,7 @@ const PlayAppRouter = () => (
             <Route path="/nav" component={PlayNavbar} exact={true} />
             <Route path="/form" component={PlayForm} exact={true} />
             <Route path="/date" component={PlayDate} exact={true} />
+            <Route path="/select" component={PlaySelect} exact={true} />
             <Route component={PlayNotFound} />
         </Switch>
     </Router>

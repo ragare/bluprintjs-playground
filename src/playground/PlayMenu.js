@@ -2,20 +2,26 @@ import React from 'react'
 import { H5, Menu, MenuItem, Popover, Button, Position } from '@blueprintjs/core'
 
 const PlayMenu = () => {
+    const clickMenu = (item) => {
+        console.log(item.target)
+    }
+
     const menu1 = (
         <Menu>
-            <MenuItem text="Child one" />
-            <MenuItem text="Child two" />
-            <MenuItem text="Child three" />
+            <MenuItem text="Child one" onClick={clickMenu} />
+            <MenuItem text="Child two" onClick={clickMenu} />
+            <MenuItem text="Child three" onClick={clickMenu} />
         </Menu>
     )
     const menu2 = (
         <Menu>
-            <MenuItem text="Child one" />
-            <MenuItem text="Child two" />
-            <MenuItem text="Child three" />
+            <MenuItem text="Child one" onClick={clickMenu} />
+            <MenuItem text="Child two" onClick={clickMenu} />
+            <MenuItem text="Child three" onClick={clickMenu} />
         </Menu>
     )
+
+
 
     return (
         <div>
