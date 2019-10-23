@@ -38,10 +38,11 @@ const PlayMultiSelect = (props) => {
         //return true
     }
     const handleClick = (item) => {
-        // setSelectedOptions(provSelectedOptions)
-        console.log("selected", selectedOptions);
+        let v = selectedOptions.filter(element => {
+            return item.season !== element.season
+        })
         setSelectedOptions([
-            ...selectedOptions,
+            ...v,
             {
                 ...item
             }
