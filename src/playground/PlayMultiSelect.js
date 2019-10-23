@@ -1,16 +1,24 @@
-import React from 'react'
-import { Button, MenuItem } from "@blueprintjs/core"
+import React, { useState, useEffect } from 'react'
+import { Button, MenuItem, Intent } from "@blueprintjs/core"
 import { Select, MultiSelect } from "@blueprintjs/select";
 
 const PlayMultiSelect = (props) => {
-    const myops = ['op1', 'op2', 'op3']
-    const semesters = [
+    const [options, setOptions] = useState( [
         { id: 1, year: 2018, season: 'season-1-2018' },
         { id: 2, year: 2019, season: 'season-2-2019' }
-    ]
-    const sem2 = [{}]
+    ])
+    
+    const INTENTS = [Intent.NONE, Intent.PRIMARY, Intent.SUCCESS, Intent.DANGER, Intent.WARNING];
+
+    const getTagProps = (_value, index) => ({
+        intent: Intent.NONE,
+        minimal: false,
+    });
+
+    const [selectedOptions, setSelectedOptions] = useState([])
+    let provSelectedOptions = []
+
     const myrender = (item, {handleClick}) => {
-        console.log("Rendering item")
         return (
             <MenuItem
                 key={item.id}
@@ -21,7 +29,7 @@ const PlayMultiSelect = (props) => {
         )
     }
     const myTagRender = (item) => {
-        console.log("tag", item)
+        return item.season
     }
     const myfilter = (str, item) => {
         // return v2.toUpperCase().includes(val.toUpperCase())
@@ -30,19 +38,36 @@ const PlayMultiSelect = (props) => {
         //return true
     }
     const handleClick = (item) => {
-        console.log(item)
-        sem2.push(item)
+        // setSelectedOptions(provSelectedOptions)
+        console.log("selected", selectedOptions);
+        setSelectedOptions([
+            ...selectedOptions,
+            {
+                ...item
+            }
+        ])
+        console.log("selected2", selectedOptions);
+    }
+
+    const removeOption = (value, index) => {
+        console.log("REMOVE %s %s", value, index)
+        let v = selectedOptions.filter(item => {
+            return value !== item.season
+        })
+        console.log("VECTOR", v)
+        setSelectedOptions(v)
     }
 
     return (
         <>
             <MultiSelect
-                items={semesters}
+                items={options}
                 itemRenderer={myrender}
                 itemPredicate={myfilter}
                 onItemSelect={handleClick}
-                selectedItems={sem2}
+                selectedItems={selectedOptions}
                 tagRenderer={myTagRender}
+                tagInputProps={{tagProps: getTagProps, onRemove: removeOption}}
                 filterable={true}
                 noResults={<MenuItem disabled={true} text="No results." />}
             >
