@@ -1,13 +1,20 @@
 import React, {useState} from 'react'
 import { Button, MenuItem } from "@blueprintjs/core"
-import { Select } from "@blueprintjs/select";
+import { Select, Suggest } from "@blueprintjs/select";
 
-const PlaySelect = (props) => {
+const PlaySuggest = (props) => {
     const myops = ['op1', 'op2', 'op3']
     const [val, setVal] = useState('          ')
     const semesters = [
-        { id: 1, year: 2018, season: 'season-1-2018' },
-        { id: 2, year: 2019, season: 'season-2-2019' }
+        { id: 1, year: 2018, season: 'Morgen time' },
+        { id: 2, year: 2019, season: 'Easy pice' },
+        { id: 2, year: 2019, season: 'Learn things' },
+        { id: 2, year: 2019, season: 'Cool Love' },
+        { id: 2, year: 2019, season: 'The beast and the beauty' },
+        { id: 2, year: 2019, season: 'Three hours to heaven' },
+        { id: 2, year: 2019, season: 'Dam Daemina' },
+        { id: 2, year: 2019, season: 'The guitar' },
+        { id: 2, year: 2019, season: 'In fall all fall' },
     ]
     const myrender = (item, {handleClick}) => {
         return (
@@ -30,21 +37,26 @@ const PlaySelect = (props) => {
         setVal(item.season)
     }
 
+    const showItem = (item) => {
+        console.log("ShowItem", item)
+        return item.season
+    }   
+
     return (
         <>
-            <Select
+            <Suggest
                 items={semesters}
                 itemRenderer={myrender}
                 itemPredicate={myfilter}
                 onItemSelect={handleClick}
+                inputValueRenderer={showItem}
                 filterable={true}
                 noResults={<MenuItem disabled={true} text="No results." />}
             >
-                <Button text={val} rightIcon="double-caret-vertical" />
-            </Select>
+            </Suggest>
         </>
     )
 }
 
 
-export { PlaySelect as default }
+export { PlaySuggest as default }
