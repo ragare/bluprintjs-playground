@@ -8,6 +8,8 @@ import './styles/styles.scss'
 import './styles/flaticon/flaticon.css'
 import PlayAppRouter from './playground/PlayAppRouter'
 
+import './i18next'
+
 SetLocale.setNumeral()
 
 ReactDOM.render(<PlayAppRouter />, document.getElementById('root'));
