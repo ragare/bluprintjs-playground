@@ -13,6 +13,7 @@ const PlayLanguages = (props) => {
                 <div>Traslate things</div>
                 <button onClick={() => handleLang('es')}>Español</button>
                 <button onClick={() => handleLang('en')}>English</button>
+                <button onClick={() => handleLang('err')}>Error</button>
                 <p>{t('Hola')}</p>
         </>
     )
