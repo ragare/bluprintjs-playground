@@ -6,6 +6,7 @@ import PlayNotFound from './PlayNotFound'
 import PlayMenu from './PlayMenu'
 import PlayTable from './PlayTable'
 import PlayNavbar from './PlayNavbar'
+import PlayNavbar2 from './PlayNavbar2'
 import PlayForm from './PlayForm'
 import PlayDate from './PlayDate'
 import PlaySelect from './PlaySelect'
@@ -29,6 +30,7 @@ const PlayAppRouter = () => (
                 <Route path="/multiselect" component={PlayMultiSelect} exact={true} />
                 <Route path="/suggest" component={PlaySuggest} exact={true} />
                 <Route path="/languages" component={PlayLanguages} exact={true} />
+                <Route path="/nav2" component={PlayNavbar2} exact={true} />
                 <Route component={PlayNotFound} />
             </Switch>
         </Router>

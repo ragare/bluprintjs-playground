@@ -46,6 +46,10 @@ const PlayNavbar = () => {
                             </MenuItem>
                         </MenuItem>
                     </Menu>
+                    <Menu>
+                        <MenuItem icon="home" text="Only menu">
+                        </MenuItem>
+                    </Menu>
 
                 </NavbarGroup>
             </Navbar>
