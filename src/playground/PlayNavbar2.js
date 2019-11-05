@@ -6,90 +6,69 @@ import PlayTable from './PlayTable'
 const menuOptions = [
     {
         icon: "home",
-        text: "Menu Op1",
+        text: "Pruebas",
+        nav: "",
         subs: [
             {
                 icon: "home",
-                text: "Subs 1",
-                subs: [
-                    {
-                        icon: "home",
-                        text: "Subs 1.1",
-                        subs: [
-                            {
-                                icon: "home",
-                                text: "Subs 1.2"
-                            }
-                        ]
-                    }
-                ]
+                text: "Formulario",
+                nav: '/form'
             },
             {
                 icon: "home",
-                text: "Subs 2"
-            }
-        ]
-    },
-    {
-        icon: "document",
-        text: "Menu Op2",
-        subs: [
+                text: "Select",
+                nav: '/select'
+            },
             {
-                icon: "document",
-                text: "Subs 2",
-                subs: [
-                    {
-                        icon: "document",
-                        text: "Subs 2.1"
-                    }
-                ]
+                icon: "home",
+                text: "Multi Select",
+                nav: '/multiselect'
             }
         ]
     }
 ]
 
-const renderMenuBase = (options) => {
-    if (options) {
-        let ren = options.map((option) => {
-            let r = (
-                <Menu>
-                    <MenuItem icon={option.icon} text={option.text} onClick={menuClick(option.text)}>
+
+const PlayNavbar2 = (props) => {
+    const renderMenuBase = (options) => {
+        if (options) {
+            let ren = options.map((option) => {
+                let r = (
+                    <Menu>
+                        <MenuItem icon={option.icon} text={option.text} onClick={menuClick(option.nav)}>
+                            {
+                                renderMenuItems(option.subs)
+                            }
+                        </MenuItem>
+                    </Menu>
+                )
+                return r
+            })
+            return ren
+        }
+    }
+    
+    const renderMenuItems = (options) => {
+        if (options) {
+            let ren = options.map((option) => {
+                let r = (
+                    <MenuItem icon={option.icon} text={option.text} onClick={menuClick(option.nav)}>
                         {
                             renderMenuItems(option.subs)
                         }
                     </MenuItem>
-                </Menu>
-            )
-            return r
-        })
-        return ren
+                )
+                return r
+            })
+            return ren
+        }
     }
-}
-
-const renderMenuItems = (options) => {
-    if (options) {
-        let ren = options.map((option) => {
-            let r = (
-                <MenuItem icon={option.icon} text={option.text} onClick={menuClick(option.text)}>
-                    {
-                        renderMenuItems(option.subs)
-                    }
-                </MenuItem>
-            )
-            return r
-        })
-        return ren
+    const menuClick = (nav) => {
+        return () => {
+            if (nav) props.history.push(nav)
+        }
     }
-}
 
-const menuClick = (text) => {
-    console.log("Building", text)
-    return () => {
-        console.log("Menu text", text)
-    }
-}
-
-const PlayNavbar2 = () => {
     return (
         <div>
             <Navbar className="bp3-dark play-zadelante">
